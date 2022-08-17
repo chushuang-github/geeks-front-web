@@ -16,11 +16,18 @@ const { Header, Sider } = Layout
 const GeekLayout = () => {
   const location = useLocation()
   const navigate = useNavigate()
-  const { userStore, loginStore } = useStore()
+  const { userStore, loginStore, channelStore } = useStore()
 
   useEffect(() => {
     userStore.getUserInfo()
-  }, [userStore])
+    channelStore.getChannel()
+  }, [userStore, channelStore])
+
+  const items = [
+    { label: <Link to="/">数据概览</Link>, icon: <HomeOutlined />, key: '/' }, // 菜单项务必填写 key
+    { label: <Link to="/article">内容管理</Link>, icon: <DiffOutlined />, key: '/article' },
+    { label: <Link to="/publish">发布文章</Link>, icon: <EditOutlined />, key: '/publish' },
+  ];
 
   // 退出登录
   const confirm = () => {
@@ -55,16 +62,8 @@ const GeekLayout = () => {
             selectedKeys={[location.pathname]}
             defaultSelectedKeys={[location.pathname]}
             style={{ height: '100%', borderRight: 0 }}
+            items={items}
           >
-            <Menu.Item icon={<HomeOutlined />} key="/">
-              <Link to="/">数据概览</Link>
-            </Menu.Item>
-            <Menu.Item icon={<DiffOutlined />} key="/article">
-              <Link to="/article">内容管理</Link>
-            </Menu.Item>
-            <Menu.Item icon={<EditOutlined />} key="/publish">
-              <Link to="/publish">发布文章</Link>
-            </Menu.Item>
           </Menu>
         </Sider>
         <Layout className="layout-content" style={{ padding: 20 }}>
