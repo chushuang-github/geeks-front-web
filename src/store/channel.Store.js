@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx"
+import { makeAutoObservable, runInAction } from "mobx"
 import { http } from "@/utils"
 
 class ChannelStore {
@@ -11,7 +11,9 @@ class ChannelStore {
   // 获取频道列表
   getChannel = async () => {
     const res = await http.get('/channels')
-    this.channelList = res.data.channels
+    runInAction(() => {
+      this.channelList = res.data.channels
+    })
   }
 }
 

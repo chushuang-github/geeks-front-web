@@ -117,8 +117,10 @@ const Article = () => {
       dataIndex: 'status',
       render: (data) => {
         const types = {
-          1: <Tag color="red">审核失败</Tag>,
-          2: <Tag color="green">审核成功</Tag>,
+          0: <Tag color="#2db7f5">草稿</Tag>,
+          1: <Tag color="#108ee9">待审核</Tag>,
+          2: <Tag color="#87d068">审核成功</Tag>,
+          3: <Tag color="#f50">审核失败</Tag>
         }
         return types[data]
       },
@@ -148,7 +150,7 @@ const Article = () => {
               type="primary"
               shape="circle"
               icon={<EditOutlined />}
-              onClick={() => navigate(`/home/publish?id=${data.id}`)}
+              onClick={() => navigate(`/publish?id=${data.id}`)}
             />
             <Popconfirm
               title="确认删除该条文章吗?"
